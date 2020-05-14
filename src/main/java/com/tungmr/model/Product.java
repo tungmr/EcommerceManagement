@@ -9,6 +9,17 @@ public class Product {
     private Supplier supplier;
     private Double price;
 
+    public Product() {
+    }
+
+    public Product(Long productId, String productName, Category category, Supplier supplier, Double price) {
+        this.productId = productId;
+        this.productName = productName;
+        this.category = category;
+        this.supplier = supplier;
+        this.price = price;
+    }
+
     public Long getProductId() {
         return productId;
     }

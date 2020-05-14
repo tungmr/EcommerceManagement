@@ -16,6 +16,21 @@ public class Promotion {
     private Timestamp endTime;
     private Long quantity;
 
+    public Promotion() {
+    }
+
+    public Promotion(Long promotionId, String promotionName, Product product, Integer discount, Boolean active, Long maxQuantity, Timestamp startTime, Timestamp endTime, Long quantity) {
+        this.promotionId = promotionId;
+        this.promotionName = promotionName;
+        this.product = product;
+        this.discount = discount;
+        this.active = active;
+        this.maxQuantity = maxQuantity;
+        this.startTime = startTime;
+        this.endTime = endTime;
+        this.quantity = quantity;
+    }
+
     public Long getPromotionId() {
         return promotionId;
     }

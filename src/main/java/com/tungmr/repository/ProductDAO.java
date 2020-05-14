@@ -12,7 +12,7 @@ public interface ProductDAO {
 
     ProductEntity updateProduct(ProductEntity entity);
 
-    ProductEntity createProduct(ProductEntity entity);
+    ProductEntity createProduct(ProductEntity entity, Long quantity);
 
     ProductEntity checkProductExisted(String productName, String categoryName, String supplierName);
 

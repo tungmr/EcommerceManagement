@@ -34,8 +34,8 @@ public class ProductServiceImpl implements ProductService {
         return ProductUtils.entity2DTO(productDAO.updateProduct(ProductUtils.dto2Entity(product)));
     }
 
-    public Product createProduct(Product product) {
-        return ProductUtils.entity2DTO(productDAO.createProduct(ProductUtils.dto2Entity(product)));
+    public Product createProduct(Product product, Long quantity) {
+        return ProductUtils.entity2DTO(productDAO.createProduct(ProductUtils.dto2Entity(product), quantity));
     }
 
     @Override

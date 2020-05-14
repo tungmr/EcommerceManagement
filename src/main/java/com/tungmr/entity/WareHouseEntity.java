@@ -34,7 +34,7 @@ public class WareHouseEntity {
     }
 
     @Basic
-    @Column(name = "quantiry")
+    @Column(name = "quantity")
     public Long getQuantity() {
         return quantity;
     }

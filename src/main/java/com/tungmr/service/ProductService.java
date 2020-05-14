@@ -13,7 +13,7 @@ public interface ProductService {
 
     Product updateProduct(Product product);
 
-    Product createProduct(Product product);
+    Product createProduct(Product product, Long quantity);
 
     Product checkProductExisted(String productName, String categoryName, String supplierName);
 

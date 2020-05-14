@@ -76,7 +76,7 @@ public class ProductValidator implements Validator {
 
                     if (product.getProductId() != null && check.getProductId() != null && !product.getProductId().equals(check.getProductId())) {
                         errors.rejectValue("productName", "error.duplicated");
-                    } else if (check.getProductId() != null) {
+                    } else if (check.getProductId() != null && product.getProductId() == null) {
                         errors.rejectValue("productName", "error.duplicated");
 
                     }

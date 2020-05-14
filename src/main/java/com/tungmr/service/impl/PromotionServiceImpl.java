@@ -4,9 +4,11 @@ import com.tungmr.entity.PromotionEntity;
 import com.tungmr.model.Product;
 import com.tungmr.model.ProductPromotion;
 import com.tungmr.model.Promotion;
+import com.tungmr.model.WareHouse;
 import com.tungmr.repository.PromotionDAO;
 import com.tungmr.service.ProductService;
 import com.tungmr.service.PromotionService;
+import com.tungmr.service.WareHouseService;
 import com.tungmr.utils.PromotionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,6 +25,9 @@ public class PromotionServiceImpl implements PromotionService {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private WareHouseService wareHouseService;
 
     public List<Promotion> findAll() {
         List<PromotionEntity> temp = promotionDAO.findAll();
@@ -58,17 +63,20 @@ public class PromotionServiceImpl implements PromotionService {
         PromotionEntity promotionEntity = promotionDAO.getPromotionByProductId(productId, promotionId);
         Product product = productService.getProductById(productId);
 
+        WareHouse wareHouse = wareHouseService.findWareHouseByProductId(productId);
+
         Promotion promotion = PromotionUtils.entity2DTO(promotionEntity);
         if (promotion.getPromotionId() != null) {
             res.setPromotion(promotion);
             res.setProduct(product);
             res.setPromotionPrice(product.getPrice());
 
-            if (promotion.getActive()) {
+            if (promotion.getActive() && wareHouse.getQuantity() > 0) {
                 Timestamp now = new Timestamp(System.currentTimeMillis());
                 if (promotion.getMaxQuantity() > promotion.getQuantity() && now.before(promotion.getEndTime())) {
                     res.setPromotionPrice(product.getPrice() - (product.getPrice() * ((double) promotion.getDiscount() / 100)));
                     promotion.setQuantity(promotion.getQuantity() + 1);
+                    wareHouse.setQuantity(wareHouse.getQuantity() - 1);
                     if (promotion.getQuantity().equals(promotion.getMaxQuantity())) {
                         promotion.setActive(Boolean.TRUE);
                     }
@@ -83,6 +91,7 @@ public class PromotionServiceImpl implements PromotionService {
 
         }
         updatePromotion(promotion);
+        wareHouseService.updateWareHouse(wareHouse);
         return res;
     }
 }

@@ -10,7 +10,7 @@ public class WareHouseUtils {
         WareHouseEntity entity = new WareHouseEntity();
 
         entity.setWareHouseId(wareHouse.getWareHouseId());
-        entity.setQuantity(entity.getWareHouseId());
+        entity.setQuantity(wareHouse.getQuantity());
         if (wareHouse.getProduct() != null)
             entity.setProduct(ProductUtils.dto2Entity(wareHouse.getProduct()));
         return entity;
@@ -20,6 +20,7 @@ public class WareHouseUtils {
         WareHouse dto = new WareHouse();
         dto.setWareHouseId(entity.getWareHouseId());
         dto.setQuantity(entity.getQuantity());
+        if (entity.getProduct()!=null)
         dto.setProduct(ProductUtils.entity2DTO(entity.getProduct()));
         return dto;
     }

@@ -2,6 +2,7 @@ package com.tungmr.repository.impl;
 
 import com.tungmr.entity.ProductEntity;
 import com.tungmr.repository.ProductDAO;
+import com.tungmr.repository.WareHouseDAO;
 import org.hibernate.Criteria;
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
@@ -18,6 +19,9 @@ public class ProductDAOImpl implements ProductDAO {
     @Autowired
     private SessionFactory sessionFactory;
 
+    @Autowired
+    private WareHouseDAO wareHouseDAO;
+
     public List<ProductEntity> findAll() {
         Criteria criteria = sessionFactory.getCurrentSession().createCriteria(ProductEntity.class);
         return criteria.list();
@@ -31,9 +35,10 @@ public class ProductDAOImpl implements ProductDAO {
         return (ProductEntity) sessionFactory.getCurrentSession().merge(entity);
     }
 
-    public ProductEntity createProduct(ProductEntity entity) {
+    public ProductEntity createProduct(ProductEntity entity, Long quantity) {
         ProductEntity res;
         Long productId = (Long) sessionFactory.getCurrentSession().save(entity);
+        wareHouseDAO.createWareHouseForProduct(productId,quantity);
         res = getProductById(productId);
         return res;
     }
