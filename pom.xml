@@ -10,7 +10,7 @@
     <packaging>war</packaging>
 
     <properties>
-        <springframework.version>4.3.24.RELEASE</springframework.version>
+        <springframework.version>5.3.18</springframework.version>
         <servlet.version>3.1.0</servlet.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
